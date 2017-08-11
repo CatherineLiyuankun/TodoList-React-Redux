@@ -8,9 +8,9 @@ Small demo using React and Redux
     `npm run start`
     
 3.	Visit http://localhost:8787/index.html, Enjoy!
+------
 
-
-Environment
+Environment Setup A
 1.	Download Node.js from http://nodejs.org/ and install it. Open your terminal, type `node -v` to make sure you can see the version number. That means you have installed Node successfully.
 2. create package.json
 3. install Babel：
@@ -39,5 +39,13 @@ create .gitignore
 
 7. react environment 
 `npm install --save react react-dom redux react-redux`
+----
 
+Environment Setup B
 
+1. ESLint
+`npm install --save-dev babel-eslint eslint eslint-plugin-react`
+create file .eslintrc
+
+2. EditorConfig
+create file .editorconfig
