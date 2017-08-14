@@ -1,0 +1,26 @@
+{
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jsx-a11y/recommended", "plugin:eslint-config-airbnb/recommended"],
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    },
+    "env": {
+        "brower": true,
+        "node": true,
+        "es6": true
+    },
+    "parser": "babel-eslint",
+    "rules": {
+        "strict": 0,
+        "valid-jsdoc": 2,
+
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/react-in-jsx-scope": 2
+    },
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "eslint-config-airbnb"
+    ]
+}
