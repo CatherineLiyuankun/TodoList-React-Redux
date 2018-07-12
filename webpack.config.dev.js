@@ -12,6 +12,7 @@ module.exports = {
     entry: {
         app: [
             'webpack-hot-middleware/client',
+            // 'webpack-dev-server/client?http://localhost:8787',
             './src/app'
         ],
         vendors: ['react', 'react-dom', 'react-router']
@@ -29,7 +30,7 @@ module.exports = {
                 path.resolve(__dirname, 'src'),
             ],
             exclude: /node_modules/,
-            loaders: ['react-hot-loader', 'babel-loader']
+            loaders: ['babel-loader']
         },{
             test: /\.(sass|scss)/,
             include: [
