@@ -2,8 +2,8 @@ import 'todomvc-app-css/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import configureStore from './todomvc/store/configureStore';
-import Root from './todomvc/containers/Root';
+import configureStore from './store/configureStore';
+import Root from './containers/Root';
 
 const store = configureStore();
 
@@ -13,19 +13,19 @@ render(
       store={ store }
     />
   </AppContainer>,
-  document.getElementById('todo')
+  document.getElementById('root')
 );
 
 if (module.hot) {
-  module.hot.accept('./todomvc/containers/Root', () => {
-    const RootContainer = require('./todomvc/containers/Root').default;
+  module.hot.accept('./containers/Root', () => {
+    const RootContainer = require('./containers/Root').default;
     render(
       <AppContainer>
         <RootContainer
           store={ store }
         />
       </AppContainer>,
-      document.getElementById('todo')
+      document.getElementById('root')
     );
   });
 }

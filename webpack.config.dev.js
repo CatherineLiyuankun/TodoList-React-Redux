@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = {
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
 
     entry: {
         app: [
@@ -35,7 +35,11 @@ module.exports = {
             include: [
                 path.resolve(__dirname, 'src'),
             ],
-            loaders: 'style!css!sass?sourceMap=true&sourceMapContents=true'
+            loaders: 'style-loader!css-loader!sass-loader?sourceMap=true&sourceMapContents=true'
+        }, {
+            test: /\.css?$/,
+            loaders: ['style-loader', 'raw-loader'],
+            include: __dirname
         }]
     },
 

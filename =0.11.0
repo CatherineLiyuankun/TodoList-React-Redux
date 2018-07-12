@@ -1,0 +1,15 @@
+todolist-react-redux@0.0.1 /Users/liyuankun/MSDEV/myReact/TodoList-React-Redux
+└─┬ react@15.6.1 
+  ├── create-react-class@15.6.0 
+  ├─┬ fbjs@0.8.14 
+  │ ├── core-js@1.2.7 
+  │ ├─┬ isomorphic-fetch@2.2.1 
+  │ │ ├─┬ node-fetch@1.7.2 
+  │ │ │ └─┬ encoding@0.1.12 
+  │ │ │   └── iconv-lite@0.4.18 
+  │ │ └── whatwg-fetch@2.0.3 
+  │ ├─┬ promise@7.3.1 
+  │ │ └── asap@2.0.6 
+  │ └── ua-parser-js@0.7.14 
+  └── prop-types@15.5.10 
+
