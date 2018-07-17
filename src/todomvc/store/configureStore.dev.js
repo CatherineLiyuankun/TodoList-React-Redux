@@ -1,9 +1,14 @@
-import { createStore, compose } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { persistState } from 'redux-devtools';
+import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
+import { createLogger } from 'redux-logger'
+
+const logger = createLogger();
 
 const enhancer = compose(
+  applyMiddleware(thunk, logger),
   DevTools.instrument(),
   persistState(
     window.location.href.match(

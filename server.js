@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const express = require('express');
+const bodyParser = require('body-parser');
 const config = require('./webpack.config.dev');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -19,9 +20,25 @@ const webpackDevOptions = {
 
 app.use(webpackDevMiddleware(compiler, webpackDevOptions));
 app.use(webpackHotMiddleware(compiler));
+app.use(bodyParser.json());
+
+const todoitems = [
+    {id:1, marked:false, text:"todo1"},
+    {id:2, marked:false, text:"todo2"},
+    {id:3, marked:false, text:"todo3"}
+]
+
+app.get('/todoitems', (req, res) => {
+    res.send(todoitems);
+});
 
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.post('/todoitems', (req, res) => {
+    todoitems.push(req.body);
+    res.sendStatus(200);
 });
 
 app.listen(8787, '0.0.0.0', function(err) {

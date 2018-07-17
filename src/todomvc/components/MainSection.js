@@ -20,7 +20,7 @@ class MainSection extends Component {
   handleClearMarked() {
     const atLeastOneMarked = this.props.todos.some(todo => todo.marked);
     if (atLeastOneMarked) {
-      this.props.actions.clearMarked();
+      this.props.todoActions.clearMarked();
     }
   }
 
@@ -29,7 +29,7 @@ class MainSection extends Component {
   }
 
   render() {
-    const { todos, actions } = this.props;
+    const { todos, todoActions, serverActions } = this.props;
     const { filter } = this.state;
 
     const filteredTodos = todos.filter(TODO_FILTERS[filter]);
@@ -43,7 +43,7 @@ class MainSection extends Component {
         {this.renderToggleAll(markedCount)}
         <ul className='todo-list'>
           {filteredTodos.map(todo =>
-            <TodoItem key={todo.id} todo={todo} {...actions} />
+            <TodoItem key={todo.id} todo={todo} {...todoActions} {...serverActions} />
           )}
         </ul>
         {this.renderFooter(markedCount)}
@@ -52,13 +52,13 @@ class MainSection extends Component {
   }
 
   renderToggleAll(markedCount) {
-    const { todos, actions } = this.props;
+    const { todos, todoActions, serverActions } = this.props;
     if (todos.length > 0) {
       return (
         <input className='toggle-all'
                type='checkbox'
                checked={markedCount === todos.length}
-               onChange={actions.markAll} />
+               onChange={todoActions.markAll} />
       );
     }
   }
@@ -82,7 +82,8 @@ class MainSection extends Component {
 
 MainSection.propTypes = {
   todos: PropTypes.array.isRequired,
-  actions: PropTypes.object.isRequired
+  todoActions: PropTypes.object.isRequired,
+  serverActions: PropTypes.object.isRequired
 };
 
 export default MainSection;

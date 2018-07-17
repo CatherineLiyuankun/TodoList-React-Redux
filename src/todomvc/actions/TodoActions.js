@@ -1,5 +1,12 @@
 import * as types from '../constants/ActionTypes';
 
+export function setTodoList(todoList) {
+  return {
+    type: types.SET_TODO_LIST,
+    todoList
+  };
+}
+
 export function addTodo(text) {
   return {
     type: types.ADD_TODO,

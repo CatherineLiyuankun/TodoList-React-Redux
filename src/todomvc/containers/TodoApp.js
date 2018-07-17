@@ -1,22 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
 import * as TodoActions from '../actions/TodoActions';
+import * as ServerActions from '../actions/actionCreators';
+import $ from 'jquery';
 
 class TodoApp extends Component {
+
+  loadData = () => {
+    // trigger request to load todo list from node server
+    const todoList = this.props.serverActions.getTodoList();
+
+    // $.get('/todoitems', (data) => {
+    //   this.props.serverActions.setTodoList(data);
+    // }, 'json');
+
+/*     $.ajax({
+      url: '/todoitems',
+      type: 'get',
+      dataType: 'json',
+      success: data => {
+        this.props.serverActions.setTodoList(data);
+      },
+      error: err => {
+        console.log(err);
+      }
+    }); */
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
   render() {
-    const { todos, actions } = this.props;
+    const { todos, todoActions, serverActions } = this.props;
 
     return (
       <div>
-        <Header addTodo={actions.addTodo} />
-        <MainSection todos={todos} actions={actions} />
+        <Header addTodo={todoActions.addTodo} />
+        <MainSection todos={todos} todoActions={todoActions} serverActions={serverActions} />
       </div>
     );
   }
 }
+
+TodoApp.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      marked: PropTypes.bool.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired,
+  todoActions: PropTypes.object.isRequired,
+  serverActions: PropTypes.object.isRequired
+};
 
 function mapState(state) {
   return {
@@ -26,7 +67,8 @@ function mapState(state) {
 
 function mapDispatch(dispatch) {
   return {
-    actions: bindActionCreators(TodoActions, dispatch)
+    todoActions: bindActionCreators(TodoActions, dispatch),
+    serverActions: bindActionCreators(ServerActions, dispatch)
   };
 }
 
