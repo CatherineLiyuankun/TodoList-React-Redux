@@ -40,7 +40,7 @@ class TodoApp extends Component {
 
     return (
       <div>
-        <Header addTodo={todoActions.addTodo} />
+        <Header addTodo={todoActions.addTodo} addTodoItem={serverActions.addTodoItem} />
         <MainSection todos={todos} todoActions={todoActions} serverActions={serverActions} />
       </div>
     );
@@ -50,7 +50,7 @@ class TodoApp extends Component {
 TodoApp.propTypes = {
   todos: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       marked: PropTypes.bool.isRequired,
       text: PropTypes.string.isRequired
     }).isRequired

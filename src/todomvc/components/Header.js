@@ -6,7 +6,8 @@ class Header extends Component {
 
   handleSave(text) {
     if (text.length !== 0) {
-      this.props.addTodo(text);
+      // this.props.addTodo(text);
+      this.props.addTodoItem(text);
     }
   }
 
@@ -23,7 +24,8 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  addTodo: PropTypes.func.isRequired
+  addTodo: PropTypes.func.isRequired,
+  addTodoItem: PropTypes.func.isRequired
 };
 
 export default Header;

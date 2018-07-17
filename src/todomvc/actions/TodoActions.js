@@ -7,10 +7,10 @@ export function setTodoList(todoList) {
   };
 }
 
-export function addTodo(text) {
+export function addTodo(newItem) {
   return {
     type: types.ADD_TODO,
-    text
+    newItem
   };
 }
 

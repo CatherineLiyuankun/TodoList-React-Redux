@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const config = require('./webpack.config.dev');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-
+const _ = require('lodash');
 const compiler = webpack(config);
 const app = express();
 
@@ -21,11 +21,12 @@ const webpackDevOptions = {
 app.use(webpackDevMiddleware(compiler, webpackDevOptions));
 app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 
 const todoitems = [
-    {id:1, marked:false, text:"todo1"},
-    {id:2, marked:false, text:"todo2"},
-    {id:3, marked:false, text:"todo3"}
+    {id:_.uniqueId('server_'), marked:false, text:'todo1'},
+    {id:_.uniqueId('server_'), marked:false, text:'todo2'},
+    {id:_.uniqueId('server_'), marked:false, text:'todo3'}
 ]
 
 app.get('/todoitems', (req, res) => {
