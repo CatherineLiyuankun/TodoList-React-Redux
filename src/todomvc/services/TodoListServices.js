@@ -19,20 +19,21 @@ export function getTodoList() {
 }
 
 export function addTodoItem(newItem) {
-    // return $.ajax({
-    //     url: '/todoitems',
-    //     type: 'post',
-    //     dataType: 'json',
-    //     data: newItem,
-    //     success: data => {
-    //       return data;
-    //     },
-    //     error: err => {
-    //       console.log(err);
-    //   }
-    // });
-
-    return $.post('/todoitems', newItem, (res) => {
-        return res;
+    return $.ajax({
+        url: '/todoitems',
+        type: 'post',
+        data: JSON.stringify(newItem),
+        contentType: 'application/json', //use contentType: 'application/json' instead of dataType: 'json'
+        success: data => {
+          return data;
+        },
+        error: err => {
+          console.log(err);
+      }
     });
+
+    //with data format error
+    // return $.post('/todoitems', JSON.stringify(newItem), (res) => {
+    //     return res;
+    // }, 'application/json');
 }
