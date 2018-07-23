@@ -1,11 +1,6 @@
 import { SET_TODO_LIST, ADD_TODO, DELETE_TODO, EDIT_TODO, MARK_TODO, MARK_ALL, CLEAR_MARKED } from '../constants/ActionTypes';
-import _ from 'lodash';
 
-const initialState = [{
-  text: 'Use Redux',
-  marked: false,
-  id: _.uniqueId('inital_')
-}];
+const initialState = [];
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
@@ -17,19 +12,19 @@ export default function todos(state = initialState, action) {
 
   case DELETE_TODO:
     return state.filter(todo =>
-      todo.id !== action.id
+      todo._id !== action.id
     );
 
   case EDIT_TODO:
     return state.map(todo =>
-      todo.id === action.id ?
+      todo._id === action.id ?
       { ...todo, text: action.text } :
       todo
     );
 
   case MARK_TODO:
     return state.map(todo =>
-      todo.id === action.id ?
+      todo._id === action.id ?
         { ...todo, marked: !todo.marked } :
         todo
     );

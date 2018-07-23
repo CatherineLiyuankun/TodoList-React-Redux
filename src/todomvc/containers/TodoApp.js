@@ -50,6 +50,7 @@ class TodoApp extends Component {
 TodoApp.propTypes = {
   todos: PropTypes.arrayOf(
     PropTypes.shape({
+      _id: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
       marked: PropTypes.bool.isRequired,
       text: PropTypes.string.isRequired

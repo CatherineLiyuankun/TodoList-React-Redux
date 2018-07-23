@@ -71,6 +71,7 @@
     "classnames": "^2.1.2",
     "jquery": "^3.2.1",
     "lodash": "^4.17.10",
+    "mongoose": "^5.2.4",
     "node-sass": "^4.9.2",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

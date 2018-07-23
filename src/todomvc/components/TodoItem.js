@@ -39,7 +39,7 @@ export default class TodoItem extends Component {
       element = (
         <TodoTextInput text={todo.text}
                        editing={this.state.editing}
-                       onSave={(text) => this.handleSave(todo.id, text)} />
+                       onSave={(text) => this.handleSave(todo._id, text)} />
       );
     } else {
       element = (
@@ -47,12 +47,12 @@ export default class TodoItem extends Component {
           <input className='toggle'
                  type='checkbox'
                  checked={todo.marked}
-                 onChange={() => markTodo(todo.id)} />
+                 onChange={() => markTodo(todo._id)} />
           <label onDoubleClick={::this.handleDoubleClick}>
             {todo.text}
           </label>
           <button className='destroy'
-                  onClick={() => deleteTodo(todo.id)} />
+                  onClick={() => deleteTodo(todo._id)} />
         </div>
       );
     }

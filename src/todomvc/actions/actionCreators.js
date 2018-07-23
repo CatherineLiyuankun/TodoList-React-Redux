@@ -36,9 +36,17 @@ export function addTodoItem(text) {
         };
         return TodoListServices.addTodoItem(newItem)
             .then((res) => {
-                if (res === "OK") {
+                if (res) {
+                    const item = {};
+                    const index = res.length - 1;
+                    const resItem = res[index];
+                    item.id = resItem.id;
+                    item._id = resItem._id;
+                    item.marked = resItem.marked;
+                    item.text = resItem.text;
+
                     //error with "Uncaught TypeError: callbacks[i].apply is not a function   at Socket.Emitter.emit (index.js:133"
-                    socket.on('todoitem', dispatch(TodoActions.addTodo(newItem)));
+                    socket.on('todoitem', dispatch(TodoActions.addTodo(item)));
 
                     // error with delay to add newItem
                     // socket.on('todoitem', () => {
