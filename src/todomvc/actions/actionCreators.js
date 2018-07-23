@@ -2,6 +2,9 @@ import * as types from '../constants/ActionTypes';
 import * as TodoActions from './TodoActions';
 import * as TodoListServices from '../services/TodoListServices';
 import _ from 'lodash';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8787');
 
 export function getTodoList() {
     return (dispatch) => {
@@ -34,10 +37,12 @@ export function addTodoItem(text) {
         return TodoListServices.addTodoItem(newItem)
             .then((res) => {
                 if (res === "OK") {
-                    dispatch(TodoActions.addTodo(newItem));
-                    // dispatch({
-                    //     type: types.GET_TODO_LIST_SUCCESS,
-                    //     response
+                    //error with "Uncaught TypeError: callbacks[i].apply is not a function   at Socket.Emitter.emit (index.js:133"
+                    socket.on('todoitem', dispatch(TodoActions.addTodo(newItem)));
+
+                    // error with delay to add newItem
+                    // socket.on('todoitem', () => {
+                    //     dispatch(TodoActions.addTodo(newItem));
                     // });
                 }
             })

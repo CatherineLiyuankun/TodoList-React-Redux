@@ -8,6 +8,8 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const _ = require('lodash');
 const compiler = webpack(config);
 const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 const webpackDevOptions = {
     noInfo: true,
@@ -39,10 +41,15 @@ app.get('*', function(req, res) {
 
 app.post('/todoitems', (req, res) => {
     todoitems.push(req.body);
+    io.emit('todoitem', req.body);
     res.sendStatus(200);
 });
 
-app.listen(8787, '0.0.0.0', function(err) {
+io.on('connection', (Socket) => {
+    console.log('a user connected');
+})
+
+const server = http.listen(8787, '0.0.0.0', function(err) {
     if (err) {
         console.log(err);
         return;
