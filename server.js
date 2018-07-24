@@ -26,6 +26,8 @@ app.use(webpackHotMiddleware(compiler));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+mongoose.Promise = Promise;
+
 const dbUrl = 'mongodb://admin123:admin123@ds147011.mlab.com:47011/learning-nodejs-lyk';
 
 const Todoitem = mongoose.model('Todoitem', {
@@ -47,16 +49,25 @@ app.get('*', function(req, res) {
 app.post('/todoitems', (req, res) => {
     const todoitem = new Todoitem(req.body);
 
-    todoitem.save((err) => {
-        if (err) {
-            sendStatus(500);
-        } else {
-            io.emit('todoitem', req.body);
+    todoitem.save()
+    .then(() => { //filter the new added todoitem
+        console.log('saved');
+        // return Todoitem.findOne({text: 'badword'}); //filter the badword
 
-            Todoitem.find(req.body, (err, todoitem) => {
-                res.send(todoitem);
-            });
+        return Todoitem.findOne(req.body);
+    })
+    .then((todoitem) => {
+        if (todoitem) {
+            console.log('censored todoitem found', todoitem);
+            // return Todoitem.remove({_id: todoitem._id}); //remove the badword
+
+            res.sendStatus(200);
+            io.emit('todoitem', todoitem);
         }
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+        return console.error(err);
     });
 });
 

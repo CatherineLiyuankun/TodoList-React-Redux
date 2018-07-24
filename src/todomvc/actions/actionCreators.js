@@ -36,22 +36,14 @@ export function addTodoItem(text) {
         };
         return TodoListServices.addTodoItem(newItem)
             .then((res) => {
-                if (res) {
-                    const item = {};
-                    const index = res.length - 1;
-                    const resItem = res[index];
-                    item.id = resItem.id;
-                    item._id = resItem._id;
-                    item.marked = resItem.marked;
-                    item.text = resItem.text;
-
+                if (res == 'OK') {
                     //error with "Uncaught TypeError: callbacks[i].apply is not a function   at Socket.Emitter.emit (index.js:133"
-                    socket.on('todoitem', dispatch(TodoActions.addTodo(item)));
+                    // socket.on('todoitem', dispatch(TodoActions.addTodo(res)));
 
-                    // error with delay to add newItem
-                    // socket.on('todoitem', () => {
-                    //     dispatch(TodoActions.addTodo(newItem));
-                    // });
+                    // error with delay to add first newItem
+                    socket.on('todoitem', (todoitem) => {
+                        dispatch(TodoActions.addTodo(todoitem));
+                    });
                 }
             })
             .catch((error) => {
