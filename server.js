@@ -46,7 +46,28 @@ app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.post('/todoitems', (req, res) => {
+//---------------------------------async await --------------------------------------
+app.post('/todoitems', async (req, res) => {
+    try {
+        const todoitem = new Todoitem(req.body);
+
+        const savedTodoItem = await todoitem.save();
+        console.log('saved', savedTodoItem);
+        
+        if (savedTodoItem) {    
+            res.sendStatus(200);
+            io.emit('todoitem', savedTodoItem);
+        }
+    } catch (error) {
+        res.sendStatus(500);
+        return console.error(error);
+    } finally {
+        console.log('post called');
+    }
+});
+
+//---------------------------------promise----------------------------------------------
+/* app.post('/todoitems', (req, res) => {
     const todoitem = new Todoitem(req.body);
 
     todoitem.save()
@@ -69,7 +90,7 @@ app.post('/todoitems', (req, res) => {
         res.sendStatus(500);
         return console.error(err);
     });
-});
+}); */
 
 io.on('connection', (Socket) => {
     console.log('a user connected');
