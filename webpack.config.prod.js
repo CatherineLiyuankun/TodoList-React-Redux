@@ -36,6 +36,10 @@ module.exports = {
                 path.resolve(__dirname, 'src'),
             ],
             loaders: ExtractTextPlugin.extract('style-loader', 'css!postcss!sass')
+        }, {
+            test: /\.css?$/,
+            loaders: ['style-loader', 'raw-loader'],
+            include: __dirname
         }]
     },
 

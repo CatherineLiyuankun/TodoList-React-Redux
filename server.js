@@ -42,6 +42,13 @@ app.get('/todoitems', (req, res) => {
     });
 });
 
+app.get('/todoitems/:status', (req, res) => {
+    const status = req.params.status === 'active' ? false : true;
+    Todoitem.find({marked: status}, (err, todoitems) => {
+        res.send(todoitems);
+    });
+});
+
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
