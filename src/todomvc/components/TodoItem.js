@@ -8,7 +8,7 @@ export default class TodoItem extends Component {
     todo: PropTypes.object.isRequired,
     editTodo: PropTypes.func.isRequired,
     deleteTodo: PropTypes.func.isRequired,
-    markTodo: PropTypes.func.isRequired
+    completeTodo: PropTypes.func.isRequired
   };
 
   constructor(props, context) {
@@ -32,7 +32,7 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    const {todo, markTodo, deleteTodo} = this.props;
+    const {todo, completeTodo, deleteTodo} = this.props;
 
     let element;
     if (this.state.editing) {
@@ -47,7 +47,7 @@ export default class TodoItem extends Component {
           <input className='toggle'
                  type='checkbox'
                  checked={todo.marked}
-                 onChange={() => markTodo(todo._id)} />
+                 onChange={() => completeTodo(todo._id)} />
           <label onDoubleClick={this.handleDoubleClick}>
             {todo.text}
           </label>

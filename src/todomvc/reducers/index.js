@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import undoable, { ActionTypes as UndoActionTypes } from 'redux-undo';
-
 import todos from './todos';
+import visibilityFilter from './visibilityFilter'
 import * as types from '../constants/ActionTypes';
 
 const undoableTodos = undoable(todos, {
@@ -36,7 +36,8 @@ const undoableTodos = undoable(todos, {
 });
 
 const rootReducer = combineReducers({
-  todos: undoableTodos
+  todos: undoableTodos,
+  visibilityFilter
 });
 
 export default rootReducer;

@@ -86,6 +86,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.1.0",
     "redux-undo": "^1.0.0-beta9-9-7",
+    "reselect": "^3.0.1",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.1.1",
     "todomvc-app-css": "^2.0.1"

@@ -353,6 +353,10 @@ html .clear-completed:active {
 	text-decoration: underline;
 }
 
+.history {
+	margin-left: 40px;
+}
+
 .undo,
 .redo,
 .reset,

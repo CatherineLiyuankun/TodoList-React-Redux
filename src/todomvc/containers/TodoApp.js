@@ -9,6 +9,7 @@ import UndoRedo from '../components/UndoRedo';
 import * as TodoActions from '../actions/TodoActions';
 import * as ServerActions from '../actions/actionCreators';
 import { ActionCreators as UndoActionCreators } from 'redux-undo';
+import { getUndoTodos, getTodos, getCompletedTodoCount } from '../selectors'
 
 class TodoApp extends Component {
 
@@ -22,20 +23,20 @@ class TodoApp extends Component {
   }
 
   render() {
-    const { todos, todoActions, serverActions, undoActions } = this.props;
+    const { untodos, todosCount,  todoActions, completedCount, serverActions, undoActions } = this.props;
 
     return (
       <div>
         <Header addTodo={todoActions.addTodo} addTodoItem={serverActions.addTodoItem} />
-        <UndoRedo undoActions={undoActions} todos={todos}/>
-        <MainSection todos={todos.present} todoActions={todoActions} serverActions={serverActions} />
+        <UndoRedo undoActions={undoActions} todos={untodos}/>
+        <MainSection todoActions={todoActions} serverActions={serverActions} todosCount={todosCount} completedCount={completedCount}/>
       </div>
     );
   }
 }
 
 TodoApp.propTypes = {
-  todos: PropTypes.shape({
+  untodos: PropTypes.shape({
     past: PropTypes.array,
     present: PropTypes.arrayOf(
       PropTypes.shape({
@@ -47,6 +48,8 @@ TodoApp.propTypes = {
     ),
     future: PropTypes.array
   }).isRequired,
+  todosCount: PropTypes.number.isRequired,
+  completedCount: PropTypes.number.isRequired,
   todoActions: PropTypes.object.isRequired,
   serverActions: PropTypes.object.isRequired,
   undoActions: PropTypes.object.isRequired
@@ -54,7 +57,9 @@ TodoApp.propTypes = {
 
 function mapState(state) {
   return {
-    todos: state.todos
+    untodos: getUndoTodos(state),
+    todosCount: getTodos(state).length,
+    completedCount: getCompletedTodoCount(state)
   };
 }
 

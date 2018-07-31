@@ -29,21 +29,26 @@ export function editTodo(id, text) {
   };
 }
 
-export function markTodo(id) {
+export function completeTodo(id) {
   return {
     type: types.MARK_TODO,
     id
   };
 }
 
-export function markAll() {
+export function completeAllTodos() {
   return {
     type: types.MARK_ALL
   };
 }
 
-export function clearMarked() {
+export function clearCompleted() {
   return {
     type: types.CLEAR_MARKED
   };
 }
+
+export const setVisibilityFilter = filter => (
+  { type: types.SET_VISIBILITY_FILTER, filter}
+)
+

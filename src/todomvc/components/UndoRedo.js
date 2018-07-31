@@ -26,7 +26,7 @@ class UndoRedo extends Component {
     const canReset = todos.past.length > 0;
     const canClear = todos.future.length > 0 || todos.past.length > 0;
     return (
-      <p>
+      <p className="history">
         <button className="undo" onClick={canUndo ? this.onUndo : null} disabled={!canUndo}>
           Undo
         </button>
