@@ -17,14 +17,14 @@ class MainSection extends Component {
     this.state = { filter: SHOW_ALL };
   }
 
-  handleClearMarked() {
+  handleClearMarked = () => {
     const atLeastOneMarked = this.props.todos.some(todo => todo.marked);
     if (atLeastOneMarked) {
       this.props.todoActions.clearMarked();
     }
   }
 
-  handleShow(filter) {
+  handleShow = (filter) => {
     this.setState({ filter });
   }
 
@@ -73,8 +73,8 @@ class MainSection extends Component {
         <Footer markedCount={markedCount}
                 unmarkedCount={unmarkedCount}
                 filter={filter}
-                onClearMarked={::this.handleClearMarked}
-                onShow={::this.handleShow} />
+                onClearMarked={this.handleClearMarked}
+                onShow={this.handleShow} />
       );
     }
   }

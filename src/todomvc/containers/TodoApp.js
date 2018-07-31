@@ -12,7 +12,7 @@ import { ActionCreators as UndoActionCreators } from 'redux-undo';
 
 class TodoApp extends Component {
 
-  loadData = () => {
+  loadData() {
     // trigger request to load todo list from node server
     this.props.serverActions.getTodoList();
   }
