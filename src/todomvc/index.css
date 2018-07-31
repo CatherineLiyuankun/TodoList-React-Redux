@@ -353,6 +353,32 @@ html .clear-completed:active {
 	text-decoration: underline;
 }
 
+.undo,
+.redo,
+.reset,
+.clear {
+	color: black;
+	font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+	cursor: pointer;
+}
+
+.undo:hover,
+.redo:hover,
+.reset:hover,
+.clear:hover {
+	text-decoration: underline;
+}
+
+.undo:disabled,
+.redo:disabled,
+.reset:disabled,
+.clear:disabled {
+	text-decoration: none;
+	color: gray;
+	cursor: default;
+}
 /*
 	Hack to remove background from Mobile Safari.
 	Can't use it globally since it destroys checkboxes in Firefox

@@ -4,31 +4,17 @@ import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
+import UndoRedo from '../components/UndoRedo';
+
 import * as TodoActions from '../actions/TodoActions';
 import * as ServerActions from '../actions/actionCreators';
-import $ from 'jquery';
+import { ActionCreators as UndoActionCreators } from 'redux-undo';
 
 class TodoApp extends Component {
 
   loadData = () => {
     // trigger request to load todo list from node server
-    const todoList = this.props.serverActions.getTodoList();
-
-    // $.get('/todoitems', (data) => {
-    //   this.props.serverActions.setTodoList(data);
-    // }, 'json');
-
-/*     $.ajax({
-      url: '/todoitems',
-      type: 'get',
-      dataType: 'json',
-      success: data => {
-        this.props.serverActions.setTodoList(data);
-      },
-      error: err => {
-        console.log(err);
-      }
-    }); */
+    this.props.serverActions.getTodoList();
   }
 
   componentDidMount() {
@@ -36,28 +22,34 @@ class TodoApp extends Component {
   }
 
   render() {
-    const { todos, todoActions, serverActions } = this.props;
+    const { todos, todoActions, serverActions, undoActions } = this.props;
 
     return (
       <div>
         <Header addTodo={todoActions.addTodo} addTodoItem={serverActions.addTodoItem} />
-        <MainSection todos={todos} todoActions={todoActions} serverActions={serverActions} />
+        <UndoRedo undoActions={undoActions} todos={todos}/>
+        <MainSection todos={todos.present} todoActions={todoActions} serverActions={serverActions} />
       </div>
     );
   }
 }
 
 TodoApp.propTypes = {
-  todos: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      marked: PropTypes.bool.isRequired,
-      text: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired,
+  todos: PropTypes.shape({
+    past: PropTypes.array,
+    present: PropTypes.arrayOf(
+      PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        marked: PropTypes.bool.isRequired,
+        text: PropTypes.string.isRequired
+      }).isRequired
+    ),
+    future: PropTypes.array
+  }).isRequired,
   todoActions: PropTypes.object.isRequired,
-  serverActions: PropTypes.object.isRequired
+  serverActions: PropTypes.object.isRequired,
+  undoActions: PropTypes.object.isRequired
 };
 
 function mapState(state) {
@@ -69,7 +61,8 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     todoActions: bindActionCreators(TodoActions, dispatch),
-    serverActions: bindActionCreators(ServerActions, dispatch)
+    serverActions: bindActionCreators(ServerActions, dispatch),
+    undoActions: bindActionCreators(UndoActionCreators, dispatch)
   };
 }
 

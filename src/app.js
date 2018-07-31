@@ -1,4 +1,4 @@
-import 'todomvc-app-css/index.css';
+import './todomvc/index.css';
 import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
