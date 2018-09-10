@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 mongoose.Promise = Promise;
 
+// https://mlab.com/
 const dbUrl = 'mongodb://admin123:admin123@ds147011.mlab.com:47011/learning-nodejs-lyk';
 
 const Todoitem = mongoose.model('Todoitem', {
